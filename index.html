@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lavoisier Cornerstone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0c;
+      --surface: #141414;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e8e8;
+      --muted: #555;
+      --gold: #c9a96e;
+      --green: #2d5a3d;
+      --green-light: #3d7a52;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* Subtle grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .name {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .name span {
+      color: var(--gold);
+    }
+
+    .handle {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+
+    .bio {
+      font-size: 0.78rem;
+      color: #888;
+      line-height: 1.65;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      margin: 18px auto 0;
+      opacity: 0.6;
+    }
+
+    /* Links */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .link:hover {
+      border-color: rgba(201,169,110,0.3);
+      background: #1a1a1a;
+      transform: translateY(-1px);
+    }
+
+    .link:nth-child(1) { animation-delay: 0.05s; }
+    .link:nth-child(2) { animation-delay: 0.1s; }
+    .link:nth-child(3) { animation-delay: 0.15s; }
+    .link:nth-child(4) { animation-delay: 0.2s; }
+    .link:nth-child(5) { animation-delay: 0.25s; }
+    .link:nth-child(6) { animation-delay: 0.3s; }
+    .link:nth-child(7) { animation-delay: 0.35s; }
+
+    .link-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+
+    .link-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .link-text {
+      flex: 1;
+    }
+
+    .link-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      display: block;
+      letter-spacing: 0.02em;
+    }
+
+    .link-sub {
+      font-size: 0.68rem;
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .link-arrow {
+      color: var(--muted);
+      font-size: 0.75rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .link:hover .link-arrow {
+      color: var(--gold);
+      transform: translateX(3px);
+    }
+
+    /* Featured link */
+    .link.featured {
+      border-color: rgba(45,90,61,0.4);
+      background: rgba(45,90,61,0.08);
+    }
+
+    .link.featured:hover {
+      border-color: rgba(45,90,61,0.7);
+      background: rgba(45,90,61,0.14);
+    }
+
+    .link.featured .link-icon {
+      background: rgba(45,90,61,0.2);
+      border-color: rgba(45,90,61,0.3);
+      color: #5aad7a;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 32px;
+      font-size: 0.65rem;
+      color: #333;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    .footer span {
+      color: var(--gold);
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <!-- Swap src for your actual headshot URL once hosted -->
+      <img class="avatar" src="https://big-net-cloud-sec-portfolio.vercel.app/headshot.jpg" alt="Lavoisier Cornerstone" onerror="this.style.display='none'" />
+      <div class="name">Lavoisier <span>Cornerstone</span></div>
+      <div class="handle">@bignetcloudsec</div>
+      <p class="bio">IT Professional & Systems Administrator. Building toward Network & Cloud Security Engineering. Texas.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="links">
+
+      <!-- Portfolio — featured -->
+      <a href="https://lavoisier.dev" target="_blank" rel="noreferrer" class="link featured">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">Portfolio</span>
+          <span class="link-sub">lavoisier.dev</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://linkedin.com/in/lavoisier-cornerstone" target="_blank" rel="noreferrer" class="link">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">LinkedIn</span>
+          <span class="link-sub">linkedin.com/in/lavoisier-cornerstone</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- GitHub -->
+      <a href="https://github.com/cornerstonian" target="_blank" rel="noreferrer" class="link">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.548 3.285-1.23 3.285-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.92.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">GitHub</span>
+          <span class="link-sub">github.com/cornerstonian</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- CCNA Command Center -->
+      <a href="https://ccna-command-center.vercel.app" target="_blank" rel="noreferrer" class="link">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">CCNA Command Center</span>
+          <span class="link-sub">Cisco IOS simulator · Study platform</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- X / Twitter -->
+      <a href="https://x.com/bignetcloudsec" target="_blank" rel="noreferrer" class="link">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">X / Twitter</span>
+          <span class="link-sub">@bignetcloudsec</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://instagram.com/bignetcloudsec" target="_blank" rel="noreferrer" class="link">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">Instagram</span>
+          <span class="link-sub">@bignetcloudsec</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:vois.cornerstone@gmail.com" class="link">
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,12 2,6"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">Email</span>
+          <span class="link-sub">vois.cornerstone@gmail.com</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+
+    </div>
+
+    <div class="footer">
+      <span>✦</span> lavoisier.dev <span>✦</span>
+    </div>
+
+  </div>
+</body>
+</html>
